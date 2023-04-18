@@ -5,110 +5,131 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Novo morador</title>
+    <style>
+        .hidden {
+            display: none;
+        }
 
-    <environment include="Development">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="~/css/site.css" rel="stylesheet" />
-    </environment>
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60%;
+            padding-top: 80%; /* 3x4 proportion with reduced size */
+            position: relative;
+            background-color: #f3f3f3;
+            margin: 0 auto 1rem;
+            border: 1px solid #d1d1d1;
+            border-radius: 4px;
+        }
 
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="~/css/site.css" rel="stylesheet" />
-    </environment>
+        .image-preview {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+    </style>
 </head>
-<body class="corpo">
-
-
-    <div class="registroform">
-        <div class="center-align">
-            <h4><i class="large material-icons">account_circle</i></h4>
-            <h5>Novo morador</h5>
-        </div>
-
-        <div>
+<body class="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 min-h-screen">
+    <div class="container mx-auto px-4 py-20">
+        <div class="bg-white rounded-lg shadow-lg p-10 max-w-md mx-auto">
+            <div class="text-center mb-8" id="imageContainer">
+                <div class="image-container">
+                    <i class="material-icons" style="font-size: 72px;">account_circle</i>
+                    <img class="image-preview hidden" alt="Foto do morador">
+                </div>
+                <h5 class="text-2xl font-semibold">Novo morador</h5>
+            </div>
             <form asp-action="Registro" enctype="multipart/form-data">
+
                 <div class="campos">
                     <div class="red-text text-darken-4" asp-validation-summary="ModelOnly"></div>
 
+                    <div class="mb-4">
+                        <label for="Nome" class="block text-sm font-medium text-gray-700">Nome</label>
+                        <input asp-for="Nome" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" id="Nome" />
+                        <span asp-validation-for="Nome" class="text-red-600 text-sm"></span>
+                    </div>
 
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input asp-for="Nome" class="validate" id="Nome" />
-                            <label asp-for="Nome" id="Nome"></label>
-                            <span asp-validation-for="Nome" class="red-text text-darken-4"></span>
+                    <div class="mb-4">
+                        <label for="CPF" class="block text-sm font-medium text-gray-700">CPF</label>
+                        <input asp-for="CPF" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" id="CPF" />
+                        <span asp-validation-for="CPF" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="Foto" class="block text-sm font-medium text-gray-700">Selecione sua foto</label>
+                        <div class="relative">
+                            <input asp-for="Foto" type="file" class="hidden" id="foto" onchange="previewFile()" />
+                            <button type="button" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" onclick="document.getElementById('foto').click();">Escolher arquivo</button>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input asp-for="CPF" class="validate" id="CPF" />
-                            <label asp-for="CPF" id="CPF"></label>
-                            <span asp-validation-for="CPF" class="red-text text-darken-4"></span>
-                        </div>
+                    <div class="mb-4">
+                        <label for="Telefone" class="block text-sm font-medium text-gray-700">Telefone</label>
+                        <input asp-for="Telefone" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" id="Telefone" />
+                        <span asp-validation-for="Telefone" class="text-red-600 text-sm"></span>
                     </div>
 
-                    <div class="row">
-                        <div class="file-field input-field col s12">
-                            <div class="btn-small">
-                                <span>Selecione sua foto</span>
-                                <input asp-for="Foto" type="file" class="validate" id="foto" />
-                            </div>
-
-                            <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text" />
-                            </div>
-                        </div>
+                    <div class="mb-4">
+                        <label for="Email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input asp-for="Email" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" type="email" id="Email" />
+                        <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
                     </div>
 
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input asp-for="Telefone" class="validate" id="Telefone" />
-                            <label asp-for="Telefone" id="Telefone"></label>
-                            <span asp-validation-for="Telefone" class="red-text text-darken-4"></span>
-                        </div>
+                    <div class="mb-4">
+                        <label for="Senha" class="block text-sm font-medium text-gray-700">Senha</label>
+                        <input asp-for="Senha" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" type="password" id="Senha" />
+                        <span asp-validation-for="Senha" class="text-red-600 text-sm"></span>
                     </div>
 
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input asp-for="Email" class="validate" type="email" id="Email" />
-                            <label asp-for="Email" id="Email"></label>
-                            <span asp-validation-for="Email" class="red-text text-darken-4"></span>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input asp-for="Senha" class="validate" type="password" id="Senha" />
-                            <label asp-for="Senha" id="Senha"></label>
-                            <span asp-validation-for="Senha" class="red-text text-darken-4"></span>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input asp-for="SenhaConfirmada" class="validate" type="password" id="SenhaConfirmada" />
-                            <label asp-for="SenhaConfirmada" id="SenhaConfirmada"></label>
-                            <span asp-validation-for="SenhaConfirmada" class="red-text text-darken-4"></span>
-                        </div>
+                    <div class="mb-4">
+                        <label for="SenhaConfirmada" class="block text-sm font-medium text-gray-700">Confirmar Senha</label>
+                        <input asp-for="SenhaConfirmada" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" type="password" id="SenhaConfirmada" />
+                        <span asp-validation-for="SenhaConfirmada" class="text-red-600 text-sm"></span>
                     </div>
                 </div>
 
-                <div class="botoes">
-                    <button type="submit" class="waves-effect waves-light btn-small green darken-4">Registrar</button> &emsp;
-                    <a asp-controller="Usuarios" asp-action="Login">Já possuo uma conta</a>
+
+                <div class="mt-6">
+                    <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700">Registrar</button>
+                </div>
+                <div class="mt-6 text-center">
+                    <a asp-controller="Usuarios" asp-action="Login" class="text-blue-600 hover:text-blue-800">Já possuo uma conta</a>
                 </div>
             </form>
         </div>
     </div>
 
+    <script>
+        function previewFile() {
+            const imageContainer = document.getElementById('imageContainer');
+            const previewImage = imageContainer.querySelector('.image-preview');
+            const file = document.getElementById('foto').files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function () {
+                previewImage.src = reader.result;
+                previewImage.classList.remove('hidden');
+                imageContainer.querySelector('.material-icons').classList.add('hidden');
+            }, false);
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
     <environment include="Development">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
@@ -124,3 +145,4 @@
     </environment>
 </body>
 </html>
+
