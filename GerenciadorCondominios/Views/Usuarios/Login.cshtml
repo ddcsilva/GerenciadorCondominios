@@ -1,74 +1,51 @@
 ﻿@model GerenciadorCondominios.ViewModels.LoginViewModel
 @{
     Layout = null;
-    ViewData["Title"] = "Login de moradores";
+    ViewData["Title"] = "CondoNexus";
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Login de moradores</title>
-
-    <environment include="Development">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="~/css/site.css" rel="stylesheet" />
-    </environment>
-
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="~/css/site.min.css" rel="stylesheet" />
-    </environment>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/login.css">
+    <title>CondoNexus</title>
 </head>
-<body class="corpo">
-    <div class="loginform">
-        <div class="center-align">
-            <h4><i class="large material-icons">account_circle</i></h4>
-            <h5>Login</h5>
-        </div>
-
-        <div>
+<body class="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md container mx-auto px-4 py-20">
+        <div class="formulario-login bg-white rounded-lg shadow-lg p-10">
+            <div class="centralizar text-center">
+                <span class="material-icons text-blue-500 text-4xl mb-4">
+                    home
+                </span>
+                <h5 class="text-2xl font-semibold titulo-formulario-login texto-gradiente">Login de moradores</h5>
+            </div>
             <form asp-action="Login">
-                <div class="campos">
-                    <div class="red-text text-darken-4" asp-validation-summary="ModelOnly"></div>
-
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input asp-for="Email" class="validate" id="Email" />
-                            <label asp-for="Email" id="Email"></label>
-                            <span asp-validation-for="Email" class="red-text text-darken-4"></span>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input asp-for="Senha" class="validate" type="password" id="Senha" />
-                            <label asp-for="Senha" id="Senha"></label>
-                            <span asp-validation-for="Senha" class="red-text text-darken-4"></span>
-                        </div>
-                    </div>
+                <div class="mb-4">
+                    <label for="Email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input asp-for="Email" autofocus class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" id="Email" />
+                    <span asp-validation-for="Email" class="mensagem-validacao text-red-600 text-sm"></span>
                 </div>
 
-                <div class="botoes">
-                    <button type="submit" class="waves-effect waves-light btn-small green darken-4">Login</button> &emsp;
-                    <a asp-controller="Usuarios" asp-action="Registro">Não possuo uma conta</a>
+                <div class="mb-4">
+                    <label for="Senha" class="block text-sm font-medium text-gray-700">Senha</label>
+                    <input asp-for="Senha" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" id="Senha" type="password" />
+                    <span asp-validation-for="Senha" class="mensagem-validacao text-red-600 text-sm"></span>
+                </div>
+
+                <div class="text-center mt-6">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md">Login</button>
+                </div>
+                <div class="text-center mt-4">
+                    <a asp-controller="Usuarios" asp-action="Registro" class="text-blue-500 hover:text-blue-600">Não possuo uma conta</a>
                 </div>
             </form>
         </div>
     </div>
-
-    <environment include="Development">
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
-    </environment>
-
-    <environment exclude="Development">
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
-    </environment>
+    <script src="~/js/login.js"></script>
 </body>
 </html>
+

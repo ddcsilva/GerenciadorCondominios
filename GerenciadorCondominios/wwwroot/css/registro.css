@@ -1,0 +1,28 @@
+﻿.hidden {
+    display: none;
+}
+
+.titulo-formulario-registro {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.texto-gradiente {
+    background-image: linear-gradient(to right, #2a4365, #2c5282);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.mensagem-validacao {
+    font-weight: bold;
+    padding: 4px 0;
+}
+
+a, button {
+    transition: all 0.3s ease;
+}
+
+.campo-invalido {
+    border-color: red;
+    box-shadow: 0 0 0 1px red;
+}
